@@ -1,0 +1,8 @@
+svg:not(:root) {
+  overflow: hidden;
+}
+
+_:-ms-fullscreen,
+ :root .logo svg {
+	height: 40px;
+}

@@ -1,0 +1,9 @@
+$glob-bg: #000 !default;
+$glob-fw: 400 !default;
+$glob-fz: 14px !default;
+$glob-lh: 1.2 !default;
+$glob-ff: 'Arial', 'Halvetica', sans-serif !default;
+$glob-color: #000 !default;
+
+$glob-font: $glob-fw #{$glob-fz}/#{$glob-lh} $glob-ff;
+
