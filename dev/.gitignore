@@ -8,3 +8,5 @@ node_modules
 
 # Garbage files
 .DS_Store
+
+dist
