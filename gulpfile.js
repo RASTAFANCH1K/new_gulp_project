@@ -47,6 +47,7 @@ const rename = require('gulp-rename');
 const scss = require('gulp-sass');
 const uglify = require('gulp-uglify-es').default;
 const handlebars = require('gulp-compile-handlebars');
+const htmlBeautify = require('gulp-html-beautify');
 const changed = require('gulp-changed');
 const connect = require('gulp-connect');
 const notify = require('gulp-notify');
@@ -62,9 +63,39 @@ const browserSyncTask = () => {
   })
 };
 
+const handlebarsConfig = target => {
+  const handlebarsOptions = {
+    ignorePartials: true,
+    batch: [`${srcFolder}/${target}`],
+    helpers: {
+      repeat(num, el) {
+        let acc = '';
+
+        for (let i = 0; i < num; i++) {
+          acc += el.fn(i);
+        }
+
+        return acc;
+      }
+    }
+  };
+
+  return handlebarsOptions;
+}
+
+const handlebarsLayoutOptions = handlebarsConfig('layout');
+const handlebarsComponentsOptions = handlebarsConfig('components');
+
+const htmlBeautifyConfig = {
+  indentSize: 2
+}
+
 const htmlTask = () => {
   return src(path.src.html)
     .pipe(fileInclude())
+    .pipe(handlebars('', handlebarsLayoutOptions))
+    .pipe(handlebars('', handlebarsComponentsOptions))
+    .pipe(htmlBeautify(htmlBeautifyConfig))
     .pipe(dest(path.dist.html))
     .pipe(browserSync.stream())
 };
@@ -148,53 +179,6 @@ const fontsTask = () => {
     .pipe(browserSync.stream())
 };
 
-
-const handlebarsConfig = target => {
-  const handlebarsOptions = {
-    ignorePartials: true,
-    batch: [`${srcFolder}/${target}`],
-    helpers: {
-      repeat(num, el) {
-        let acc = '';
-
-        for (let i = 0; i < num; i++) {
-          acc += el.fn(i);
-        }
-
-        return acc;
-      }
-    }
-  };
-
-  return handlebarsOptions;
-}
-
-const handlebarsLayoutOptions = handlebarsConfig('layout');
-const handlebarsComponentsOptions = handlebarsConfig('components');
-
-const handlebarsLayoutTask = () => {
-  return src(path.src.html)
-    // .pipe(changed('dist/'))
-    .pipe(handlebars('', handlebarsLayoutOptions))
-    .pipe(dest(path.dist.html))
-    .pipe(browserSync.stream())
-    // .pipe(connect.reload())
-    // .pipe(notify('Handlebars Task finished'));
-}
-
-const handlebarsComponentsTask = () => {
-  return src(path.src.html)
-    // .pipe(changed('dist/'))
-    .pipe(handlebars({
-      firstName: 'Ross',
-      lastName: 'Mamon'
-    }, handlebarsComponentsOptions))
-    .pipe(dest(path.dist.html))
-    .pipe(browserSync.stream())
-    // .pipe(connect.reload())
-    // .pipe(notify('Handlebars Task finished'));
-}
-
 const watchFilesTask = () => {
   watch([path.watch.html], htmlTask);
   watch([path.watch.css], cssTask);
@@ -202,8 +186,6 @@ const watchFilesTask = () => {
   watch([path.watch.img], imgTask);
   watch([path.watch.svg], svgTask);
   watch([path.watch.fonts], fontsTask);
-  watch([path.watch.html], handlebarsLayoutTask);
-  watch([path.watch.html], handlebarsComponentsTask);
 };
 
 const cleanTask = () => del(path.clean);
@@ -215,8 +197,6 @@ const seriesTask = series(cleanTask, parallel(
   imgTask,
   svgTask,
   fontsTask,
-  handlebarsLayoutTask,
-  handlebarsComponentsTask
 ))
 
 const parallelTask = parallel(
@@ -231,8 +211,6 @@ exports.jsTask = jsTask;
 exports.imgTask = imgTask;
 exports.svgTask = svgTask;
 exports.fontsTask = fontsTask;
-exports.handlebarsLayoutTask = handlebarsLayoutTask;
-exports.handlebarsComponentsTask = handlebarsComponentsTask;
 exports.seriesTask = seriesTask;
 exports.parallelTask = parallelTask;
 exports.default = parallelTask;
