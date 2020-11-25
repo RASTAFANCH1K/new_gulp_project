@@ -148,6 +148,7 @@ const fontsTask = () => {
     .pipe(browserSync.stream())
 };
 
+
 const handlebarsConfig = target => {
   const handlebarsOptions = {
     ignorePartials: true,
@@ -163,7 +164,7 @@ const handlebarsConfig = target => {
         return acc;
       }
     }
-  }
+  };
 
   return handlebarsOptions;
 }
@@ -184,7 +185,10 @@ const handlebarsLayoutTask = () => {
 const handlebarsComponentsTask = () => {
   return src(path.src.html)
     // .pipe(changed('dist/'))
-    .pipe(handlebars('', handlebarsComponentsOptions))
+    .pipe(handlebars({
+      firstName: 'Ross',
+      lastName: 'Mamon'
+    }, handlebarsComponentsOptions))
     .pipe(dest(path.dist.html))
     .pipe(browserSync.stream())
     // .pipe(connect.reload())
