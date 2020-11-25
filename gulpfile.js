@@ -4,8 +4,8 @@ const distFolder = 'dist';
 let path = {
   src: {
     html: `${srcFolder}/*.html`,
-    css: `${srcFolder}/scss/main.scss`,
-    js: `${srcFolder}/js/main.js`,
+    css: `${srcFolder}/scss/index.scss`,
+    js: `${srcFolder}/js/index.js`,
     img: `${srcFolder}/img/**/*.{jpg,png,gif,ico,webp}`,
     svg: `${srcFolder}/svg/**/*.svg`,
     fonts: `${srcFolder}/fonts/icomoon/*.*`
