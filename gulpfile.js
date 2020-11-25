@@ -86,15 +86,19 @@ const handlebarsConfig = target => {
 const handlebarsLayoutOptions = handlebarsConfig('layout');
 const handlebarsComponentsOptions = handlebarsConfig('components');
 
+const handlebarsData = {
+  firstName: 'Ross'
+};
+
 const htmlBeautifyConfig = {
   indentSize: 2
-}
+};
 
 const htmlTask = () => {
   return src(path.src.html)
     .pipe(fileInclude())
-    .pipe(handlebars('', handlebarsLayoutOptions))
-    .pipe(handlebars('', handlebarsComponentsOptions))
+    .pipe(handlebars(handlebarsData, handlebarsLayoutOptions))
+    .pipe(handlebars(handlebarsData, handlebarsComponentsOptions))
     .pipe(htmlBeautify(htmlBeautifyConfig))
     .pipe(dest(path.dist.html))
     .pipe(browserSync.stream())
