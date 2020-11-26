@@ -2,15 +2,15 @@ doctype html
 html(lang="en")
   head
     include components/meta-tags
-    title Document
+    title Title
     include components/head-links
   body
-    div(class="wrapper")
+    .wrapper
       include layout/header
       main
         section
-          div(class="container")
-            - for (let i = 0; i < 5; i++)
+          .container
+            - for (let i = 0; i < 10; i++)
               include components/block
       include layout/footer
     include components/script-tags
