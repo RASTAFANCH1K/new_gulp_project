@@ -1,3 +1,4 @@
+const projectFolder = 'new_gulp_project'
 const srcFolder = '#src';
 const distFolder = 'dist';
 
@@ -48,8 +49,6 @@ const scss = require('gulp-sass');
 const uglify = require('gulp-uglify-es').default;
 const handlebars = require('gulp-compile-handlebars');
 const htmlBeautify = require('gulp-html-beautify');
-const changed = require('gulp-changed');
-const connect = require('gulp-connect');
 const notify = require('gulp-notify');
 
 const browserSyncTask = () => {
@@ -83,8 +82,8 @@ const handlebarsConfig = target => {
   return handlebarsOptions;
 }
 
-const handlebarsLayoutOptions = handlebarsConfig('layout');
-const handlebarsComponentsOptions = handlebarsConfig('components');
+const handlebarsLayout = handlebarsConfig('layout');
+const handlebarsComponents = handlebarsConfig('components');
 
 const handlebarsData = {
   firstName: 'Ross'
@@ -97,11 +96,12 @@ const htmlBeautifyConfig = {
 const htmlTask = () => {
   return src(path.src.html)
     .pipe(fileInclude())
-    .pipe(handlebars(handlebarsData, handlebarsLayoutOptions))
-    .pipe(handlebars(handlebarsData, handlebarsComponentsOptions))
+    .pipe(handlebars(handlebarsData, handlebarsLayout))
+    .pipe(handlebars(handlebarsData, handlebarsComponents))
     .pipe(htmlBeautify(htmlBeautifyConfig))
     .pipe(dest(path.dist.html))
     .pipe(browserSync.stream())
+    .pipe(notify(`${projectFolder} started!`))
 };
 
 const cssTask = () => {
