@@ -1,16 +1,16 @@
-<!DOCTYPE html>
+doctype html
 html(lang="en")
   head
-    include components/meta-tags.pug
+    include components/meta-tags
     title Document
-    include components/head-links.pug
+    include components/head-links
   body
     div(class="wrapper")
-      include layout/header.pug
+      include layout/header
       main
         section
           div(class="container")
-            - for (var i = 0; i < 5; i++)
-              include components/block.pug
-      include layout/footer.pug
-    include components/script-tags.pug
+            - for (let i = 0; i < 5; i++)
+              include components/block
+      include layout/footer
+    include components/script-tags
