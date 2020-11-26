@@ -4,7 +4,7 @@ const distFolder = 'dist';
 
 let path = {
   src: {
-    html: `${srcFolder}/*.html`,
+    html: `${srcFolder}/*.{html,pug,handlebars}`,
     css: `${srcFolder}/scss/index.scss`,
     js: `${srcFolder}/js/index.js`,
     img: `${srcFolder}/img/**/*.{jpg,png,gif,ico,webp}`,
@@ -12,7 +12,7 @@ let path = {
     fonts: `${srcFolder}/fonts/icomoon/*.*`
   },
   watch: {
-    html: `${srcFolder}/**/*.html`,
+    html: `${srcFolder}/**/*.{html,pug,handlebars}`,
     css: `${srcFolder}/scss/**/*.scss`,
     js: `${srcFolder}/js/**/*.js`,
     img: `${srcFolder}/img/**/*.{jpg,png,gif,ico,webp}`,
