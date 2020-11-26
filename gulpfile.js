@@ -4,7 +4,7 @@ const distFolder = 'dist';
 
 let path = {
   src: {
-    html: `${srcFolder}/*.{html,pug,handlebars}`,
+    html: `${srcFolder}/*.{html,pug,hbs,handlebars}`,
     css: `${srcFolder}/scss/index.scss`,
     js: `${srcFolder}/js/index.js`,
     img: `${srcFolder}/img/**/*.{jpg,png,gif,ico,webp}`,
@@ -12,7 +12,7 @@ let path = {
     fonts: `${srcFolder}/fonts/icomoon/*.*`
   },
   watch: {
-    html: `${srcFolder}/**/*.{html,pug,handlebars}`,
+    html: `${srcFolder}/**/*.{html,pug,hbs,handlebars}`,
     css: `${srcFolder}/scss/**/*.scss`,
     js: `${srcFolder}/js/**/*.js`,
     img: `${srcFolder}/img/**/*.{jpg,png,gif,ico,webp}`,
@@ -47,8 +47,8 @@ const imagemin = require('gulp-imagemin');
 const rename = require('gulp-rename');
 const scss = require('gulp-sass');
 const uglify = require('gulp-uglify-es').default;
-const handlebars = require('gulp-compile-handlebars');
 const htmlBeautify = require('gulp-html-beautify');
+const pug = require('gulp-pug');
 const notify = require('gulp-notify');
 
 const browserSyncTask = () => {
@@ -62,33 +62,6 @@ const browserSyncTask = () => {
   })
 };
 
-const handlebarsConfig = target => {
-  const handlebarsOptions = {
-    ignorePartials: true,
-    batch: [`${srcFolder}/${target}`],
-    helpers: {
-      repeat(num, el) {
-        let acc = '';
-
-        for (let i = 0; i < num; i++) {
-          acc += el.fn(i);
-        }
-
-        return acc;
-      }
-    }
-  };
-
-  return handlebarsOptions;
-}
-
-const handlebarsLayout = handlebarsConfig('layout');
-const handlebarsComponents = handlebarsConfig('components');
-
-const handlebarsData = {
-  firstName: 'Ross'
-};
-
 const htmlBeautifyConfig = {
   indentSize: 2
 };
@@ -96,9 +69,13 @@ const htmlBeautifyConfig = {
 const htmlTask = () => {
   return src(path.src.html)
     .pipe(fileInclude())
-    .pipe(handlebars(handlebarsData, handlebarsLayout))
-    .pipe(handlebars(handlebarsData, handlebarsComponents))
+    .pipe(pug())
     .pipe(htmlBeautify(htmlBeautifyConfig))
+    .pipe(
+      rename({
+        extname: '.html'
+      })
+    )
     .pipe(dest(path.dist.html))
     .pipe(browserSync.stream())
     .pipe(notify(`${projectFolder} started!`))

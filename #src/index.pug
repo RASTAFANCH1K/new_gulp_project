@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+html(lang="en")
+  head
+    include components/meta-tags.pug
+    title Document
+    include components/head-links.pug
+  body
+    div(class="wrapper")
+      include layout/header.pug
+      main
+        section
+          div(class="container")
+            - for (var i = 0; i < 5; i++)
+              include components/block.pug
+      include layout/footer.pug
+    include components/script-tags.pug
