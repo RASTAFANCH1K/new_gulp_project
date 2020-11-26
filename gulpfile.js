@@ -7,7 +7,7 @@ let path = {
     html: `${srcFolder}/*.{html,pug,hbs,handlebars}`,
     css: `${srcFolder}/scss/index.scss`,
     js: `${srcFolder}/js/index.js`,
-    img: `${srcFolder}/img/**/*.{jpg,png,gif,ico,webp}`,
+    img: `${srcFolder}/images/**/*.{jpg,png,gif,ico,webp}`,
     svg: `${srcFolder}/svg/**/*.svg`,
     fonts: `${srcFolder}/fonts/icomoon/*.*`
   },
@@ -15,7 +15,7 @@ let path = {
     html: `${srcFolder}/**/*.{html,pug,hbs,handlebars}`,
     css: `${srcFolder}/scss/**/*.scss`,
     js: `${srcFolder}/js/**/*.js`,
-    img: `${srcFolder}/img/**/*.{jpg,png,gif,ico,webp}`,
+    img: `${srcFolder}/images/**/*.{jpg,png,gif,ico,webp}`,
     svg: `${srcFolder}/svg/**/*.svg`,
     fonts: `${srcFolder}/fonts/icomoon/*.*`
   },
@@ -23,7 +23,7 @@ let path = {
     html: `${distFolder}/`,
     css: `${distFolder}/css/`,
     js: `${distFolder}/js/`,
-    img: `${distFolder}/img/`,
+    img: `${distFolder}/images/`,
     svg: `${distFolder}/svg/`,
     fonts: `${srcFolder}/fonts/icomoon/`
   },
