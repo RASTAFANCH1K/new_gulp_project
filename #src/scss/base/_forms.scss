@@ -6,11 +6,11 @@ textarea {
   appearance: none;
   padding: 12px 20px;
   background-color: #fff;
-  color: #545e6a;
+  color: $glob-color;
 
   &::placeholder {
     font: $glob-font;
-    color: #545e6a;
+    color: $glob-color;
   }
 }
 
