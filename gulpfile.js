@@ -1,4 +1,4 @@
-const projectFolder = 'new_gulp_project'
+const projectFolder = 'new_gulp_project';
 const srcFolder = '#src';
 const distFolder = 'dist';
 
