@@ -5,7 +5,7 @@ const distFolder = 'dist';
 let path = {
   src: {
     html: `${srcFolder}/*.{html,pug,hbs,handlebars}`,
-    css: `${srcFolder}/scss/index.scss`,
+    scss: `${srcFolder}/scss/index.scss`,
     js: `${srcFolder}/js/index.js`,
     img: `${srcFolder}/img/**/*.{jpg,png,gif,ico,webp}`,
     svg: `${srcFolder}/svg/**/*.svg`,
@@ -13,7 +13,7 @@ let path = {
   },
   watch: {
     html: `${srcFolder}/**/*.{html,pug,hbs,handlebars}`,
-    css: `${srcFolder}/scss/**/*.{scss,css}`,
+    scss: `${srcFolder}/scss/**/*.{scss,css}`,
     js: `${srcFolder}/js/**/*.js`,
     img: `${srcFolder}/img/**/*.{jpg,png,gif,ico,webp}`,
     svg: `${srcFolder}/svg/**/*.svg`,
@@ -125,8 +125,8 @@ const htmlTask = () => {
 //     .pipe(notify(`${projectFolder} started!`))
 // };
 
-const cssTask = () => {
-  return src(path.src.css)
+const scssTask = () => {
+  return src(path.src.scss)
     .pipe(
       scss({
         outputStyle: 'expanded'
@@ -206,7 +206,7 @@ const fontsTask = () => {
 
 const watchFilesTask = () => {
   watch([path.watch.html], htmlTask);
-  watch([path.watch.css], cssTask);
+  watch([path.watch.scss], scssTask);
   watch([path.watch.js], jsTask);
   watch([path.watch.img], imgTask);
   watch([path.watch.svg], svgTask);
@@ -217,7 +217,7 @@ const cleanTask = () => del(path.clean);
 
 const seriesTask = series(cleanTask, parallel(
   htmlTask,
-  cssTask,
+  scssTask,
   jsTask,
   imgTask,
   svgTask,
@@ -231,7 +231,7 @@ const parallelTask = parallel(
 );
 
 exports.htmlTask = htmlTask;
-exports.cssTask = cssTask;
+exports.scssTask = scssTask;
 exports.jsTask = jsTask;
 exports.imgTask = imgTask;
 exports.svgTask = svgTask;
