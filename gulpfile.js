@@ -171,7 +171,7 @@ const seriesTask = series(cleanTask, parallel(
   imgTask,
   svgTask,
   fontsTask,
-))
+));
 
 const parallelTask = parallel(
   seriesTask,
