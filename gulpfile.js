@@ -13,7 +13,7 @@ let path = {
   },
   watch: {
     html: `${srcFolder}/**/*.{html,pug,hbs,handlebars}`,
-    css: `${srcFolder}/scss/**/*.scss`,
+    css: `${srcFolder}/scss/**/*.{scss,css}`,
     js: `${srcFolder}/js/**/*.js`,
     img: `${srcFolder}/img/**/*.{jpg,png,gif,ico,webp}`,
     svg: `${srcFolder}/svg/**/*.svg`,
