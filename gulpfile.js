@@ -76,53 +76,10 @@ const htmlBeautifyConfig = {
 //     .pipe(notify(`${projectFolder} started!`))
 // };
 
-const htmlTask = () => {
-  return src(path.src.html)
-    .pipe(fileInclude())
-    .pipe(pug())
-    .pipe(htmlBeautify(htmlBeautifyConfig))
-    .pipe(
-      rename({
-        extname: '.html'
-      })
-    )
-    .pipe(dest(path.dist.html))
-    .pipe(browserSync.stream())
-    .pipe(notify(`${projectFolder} started!`))
-};
-
-// const handlebarsConfig = target => {
-//   const handlebarsOptions = {
-//     ignorePartials: true,
-//     batch: [`${srcFolder}/${target}`],
-//     helpers: {
-//       repeat(num, el) {
-//         let acc = '';
-
-//         for (let i = 0; i < num; i++) {
-//           acc += el.fn(i);
-//         }
-
-//         return acc;
-//       }
-//     }
-//   };
-
-//   return handlebarsOptions;
-// }
-
-// const handlebarsLayout = handlebarsConfig('layout');
-// const handlebarsComponents = handlebarsConfig('components');
-
-// const handlebarsData = {
-//   firstName: 'Ross'
-// };
-
 // const htmlTask = () => {
 //   return src(path.src.html)
 //     .pipe(fileInclude())
-//     .pipe(handlebars(handlebarsData, handlebarsLayout))
-//     .pipe(handlebars(handlebarsData, handlebarsComponents))
+//     .pipe(pug())
 //     .pipe(htmlBeautify(htmlBeautifyConfig))
 //     .pipe(
 //       rename({
@@ -133,6 +90,49 @@ const htmlTask = () => {
 //     .pipe(browserSync.stream())
 //     .pipe(notify(`${projectFolder} started!`))
 // };
+
+const handlebarsConfig = target => {
+  const handlebarsOptions = {
+    ignorePartials: true,
+    batch: [`${srcFolder}/${target}`],
+    helpers: {
+      repeat(num, el) {
+        let acc = '';
+
+        for (let i = 0; i < num; i++) {
+          acc += el.fn(i);
+        }
+
+        return acc;
+      }
+    }
+  };
+
+  return handlebarsOptions;
+}
+
+const handlebarsLayout = handlebarsConfig('layout');
+const handlebarsComponents = handlebarsConfig('components');
+
+const handlebarsData = {
+  firstName: 'Ross'
+};
+
+const htmlTask = () => {
+  return src(path.src.html)
+    .pipe(fileInclude())
+    .pipe(handlebars(handlebarsData, handlebarsLayout))
+    .pipe(handlebars(handlebarsData, handlebarsComponents))
+    .pipe(htmlBeautify(htmlBeautifyConfig))
+    .pipe(
+      rename({
+        extname: '.html'
+      })
+    )
+    .pipe(dest(path.dist.html))
+    .pipe(browserSync.stream())
+    .pipe(notify(`${projectFolder} started!`))
+};
 
 const cssTask = () => {
   return src(path.src.css)
