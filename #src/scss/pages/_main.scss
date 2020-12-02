@@ -4,9 +4,11 @@
 }
 
 .svg {
-
   .line {
     stroke-width:1; 
     stroke:rgb(0, 0, 0);
   }
 }
+
+.grid-item { width: 200px; }
+.grid-item--width2 { width: 400px; }

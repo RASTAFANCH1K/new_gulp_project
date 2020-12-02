@@ -1,9 +1,8 @@
 $(function() {
-  mySwiper();
+  msnry();
 });
 
 var mySwiper = new Swiper('.swiper-container', {
-  // Optional parameters
   direction: 'horizontal',
   loop: true,
 
@@ -13,10 +12,16 @@ var mySwiper = new Swiper('.swiper-container', {
     delay: 5000,
   },
 
-  // If we need pagination
   pagination: {
     el: '.swiper-pagination',
     type: 'bullets',
     clickable: true
   }
 })
+
+function msnry() {
+  $('.grid').masonry({
+    itemSelector: '.grid-item',
+    columnWidth: 200
+  });
+}
