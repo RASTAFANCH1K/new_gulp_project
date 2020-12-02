@@ -1,0 +1,16 @@
+doctype html
+html(lang="en")
+  head
+    include components/meta-tags
+    title Title
+    include components/head-links
+  body
+    .wrapper
+      include layout/header
+      main
+        section
+          .container
+            - for (let i = 0; i < 5; i++)
+              include components/block
+      include layout/footer
+    include components/script-tags

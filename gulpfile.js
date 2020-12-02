@@ -4,16 +4,16 @@ const distFolder = 'dist';
 
 let path = {
   src: {
-    html: `${srcFolder}/*.html`,
-    scss: `${srcFolder}/scss/index.scss`,
+    html: `${srcFolder}/*.{html,pug,hbs,handlebars}`,
+    css: `${srcFolder}/scss/index.{scss,sass,css}`,
     js: `${srcFolder}/js/index.js`,
     img: `${srcFolder}/img/**/*.{jpg,png,gif,ico,webp}`,
     svg: `${srcFolder}/svg/**/*.svg`,
     fonts: `${srcFolder}/fonts/icomoon/*.*`
   },
   watch: {
-    html: `${srcFolder}/**/*.html`,
-    scss: `${srcFolder}/scss/**/*.{scss,css}`,
+    html: `${srcFolder}/**/*.{html,pug,hbs,handlebars}`,
+    css: `${srcFolder}/scss/**/*.{scss,sass,css}`,
     js: `${srcFolder}/js/**/*.js`,
     img: `${srcFolder}/img/**/*.{jpg,png,gif,ico,webp}`,
     svg: `${srcFolder}/svg/**/*.svg`,
@@ -45,8 +45,10 @@ const fileInclude = require('gulp-file-include');
 const groupMedia = require('gulp-group-css-media-queries');
 const imagemin = require('gulp-imagemin');
 const rename = require('gulp-rename');
-const scss = require('gulp-sass');
+const sass = require('gulp-sass');
 const uglify = require('gulp-uglify-es').default;
+const pug = require('gulp-pug');
+const handlebars = require('gulp-compile-handlebars');
 const htmlBeautify = require('gulp-html-beautify');
 const notify = require('gulp-notify');
 
@@ -65,19 +67,77 @@ const htmlBeautifyConfig = {
   indentSize: 2
 };
 
+// const htmlTask = () => {
+//   return src(path.src.html)
+//     .pipe(fileInclude())
+//     .pipe(htmlBeautify(htmlBeautifyConfig))
+//     .pipe(dest(path.dist.html))
+//     .pipe(browserSync.stream())
+//     .pipe(notify(`${projectFolder} started!`))
+// };
+
 const htmlTask = () => {
   return src(path.src.html)
     .pipe(fileInclude())
+    .pipe(pug())
     .pipe(htmlBeautify(htmlBeautifyConfig))
+    .pipe(
+      rename({
+        extname: '.html'
+      })
+    )
     .pipe(dest(path.dist.html))
     .pipe(browserSync.stream())
     .pipe(notify(`${projectFolder} started!`))
 };
 
-const scssTask = () => {
-  return src(path.src.scss)
+// const handlebarsConfig = target => {
+//   const handlebarsOptions = {
+//     ignorePartials: true,
+//     batch: [`${srcFolder}/${target}`],
+//     helpers: {
+//       repeat(num, el) {
+//         let acc = '';
+
+//         for (let i = 0; i < num; i++) {
+//           acc += el.fn(i);
+//         }
+
+//         return acc;
+//       }
+//     }
+//   };
+
+//   return handlebarsOptions;
+// }
+
+// const handlebarsLayout = handlebarsConfig('layout');
+// const handlebarsComponents = handlebarsConfig('components');
+
+// const handlebarsData = {
+//   firstName: 'Ross'
+// };
+
+// const htmlTask = () => {
+//   return src(path.src.html)
+//     .pipe(fileInclude())
+//     .pipe(handlebars(handlebarsData, handlebarsLayout))
+//     .pipe(handlebars(handlebarsData, handlebarsComponents))
+//     .pipe(htmlBeautify(htmlBeautifyConfig))
+//     .pipe(
+//       rename({
+//         extname: '.html'
+//       })
+//     )
+//     .pipe(dest(path.dist.html))
+//     .pipe(browserSync.stream())
+//     .pipe(notify(`${projectFolder} started!`))
+// };
+
+const cssTask = () => {
+  return src(path.src.css)
     .pipe(
-      scss({
+      sass({
         outputStyle: 'expanded'
       })
     )
@@ -155,7 +215,7 @@ const fontsTask = () => {
 
 const watchFilesTask = () => {
   watch([path.watch.html], htmlTask);
-  watch([path.watch.scss], scssTask);
+  watch([path.watch.css], cssTask);
   watch([path.watch.js], jsTask);
   watch([path.watch.img], imgTask);
   watch([path.watch.svg], svgTask);
@@ -166,7 +226,7 @@ const cleanTask = () => del(path.clean);
 
 const seriesTask = series(cleanTask, parallel(
   htmlTask,
-  scssTask,
+  cssTask,
   jsTask,
   imgTask,
   svgTask,
@@ -180,7 +240,7 @@ const parallelTask = parallel(
 );
 
 exports.htmlTask = htmlTask;
-exports.scssTask = scssTask;
+exports.cssTask = cssTask;
 exports.jsTask = jsTask;
 exports.imgTask = imgTask;
 exports.svgTask = svgTask;
