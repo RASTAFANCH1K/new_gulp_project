@@ -1,24 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  {{> meta-tags}}
-  <title>Title</title>
-  {{> head-links}}
-</head>
-<body>
-  <div class="wrapper">
-    {{> header}}
-    <main>
-      <section>
-        <div class="container">
-          {{#repeat 5}}
-            {{> block}}
-          {{/repeat}}
-        </div>
-      </section>
-    </main>
-    {{> footer}}
-  </div>
-  {{> script-tags}}
-</body>
+  <head>
+    {{> meta-tags}}
+    <title>Title</title>
+    {{> head-links}}
+  </head>
+  <body>
+    <div class="wrapper">
+      {{> header}}
+      <main>
+        <section>
+          <div class="container">
+            {{#repeat 5}}
+              {{> block}}
+            {{/repeat}}
+          </div>
+        </section>
+      </main>
+      {{> footer}}
+    </div>
+    {{> script-tags}}
+  </body>
 </html>
