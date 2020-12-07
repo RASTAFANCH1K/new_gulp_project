@@ -15,11 +15,6 @@
       @content;
     }
   }
-  @else if $breakpoint == mobile-m {
-    @media screen and (max-width: 375px) {
-      @content;
-    }
-  }
   @else if $breakpoint == mobile-l {
     @media screen and (max-width: 425px) {
       @content;
