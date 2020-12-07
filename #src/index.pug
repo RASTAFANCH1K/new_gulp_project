@@ -24,5 +24,16 @@ html(lang="en")
               .grid-item Ololo
               .grid-item.grid-item--width2 aaaa
               .grid-item bbbb
+          .container
+            - let values = ['a', 'b', 'c'];
+            - let nums = [1, 2, 3];
+            ul
+              each val in values
+                include components/block
+              else 
+                li There are no values
+            ul
+              - for (let i = 1; i <= nums.length; i++)
+                li= i
       include layout/footer
     include components/script-tags
