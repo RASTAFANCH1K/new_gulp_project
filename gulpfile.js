@@ -5,8 +5,8 @@ const distFolder = 'dist';
 let path = {
   src: {
     html: `${srcFolder}/*.{html,pug,hbs,handlebars}`,
-    css: `${srcFolder}/scss/index.{scss,sass,css}`,
-    js: `${srcFolder}/js/index.js`,
+    css: `${srcFolder}/scss/*.{scss,sass,css}`,
+    js: `${srcFolder}/js/*.js`,
     img: `${srcFolder}/img/**/*.{jpg,png,gif,ico,webp}`,
     svg: `${srcFolder}/svg/**/*.svg`,
     fonts: `${srcFolder}/fonts/icomoon/*.*`
@@ -242,7 +242,7 @@ const parallelTask = parallel(
 exports.htmlTask = htmlTask;
 exports.cssTask = cssTask;
 exports.jsTask = jsTask;
-exports.imgTask = imgTask;
+exports.imgTask = imgTask;        
 exports.svgTask = svgTask;
 exports.fontsTask = fontsTask;
 exports.seriesTask = seriesTask;
