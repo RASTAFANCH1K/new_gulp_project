@@ -25,7 +25,7 @@ let path = {
     js: `${distFolder}/js/`,
     img: `${distFolder}/img/`,
     svg: `${distFolder}/svg/`,
-    fonts: `${srcFolder}/fonts/icomoon/`
+    fonts: `${distFolder}/fonts/icomoon/`
   },
   clean: `./${distFolder}/`
 };
